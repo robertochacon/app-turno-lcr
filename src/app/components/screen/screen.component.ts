@@ -13,6 +13,7 @@ export class ScreenComponent implements OnInit {
   loading = false;
   loadData = false;
   listTurns: any[] = [];
+  callTurn: any = false;
 
   constructor(private _services: ServicesService, private _turns: TurnsService) { }
 
@@ -46,8 +47,8 @@ export class ScreenComponent implements OnInit {
       cluster: 'mt1',
       key: 'RCA090698',
       // wsHost: window.location.hostname,
-      wsHost: 'api.varaturno.com',
-      // wsHost: '27.0.174.165',
+      // wsHost: 'api.varaturno.com',
+      wsHost: '27.0.174.165',
       forceTLS: false,
       // wsPort: 6001,
       enabledTransports: ['ws']
@@ -57,8 +58,12 @@ export class ScreenComponent implements OnInit {
       console.log(resp);
       this.getAllTurns();
       if(typeof resp.msg === 'object'){
-        console.log('yes is object')
-        this.voice(resp.msg)
+        this.callTurn = true;
+        setTimeout(()=>{
+          this.callTurn = false;
+        },3000);
+        // console.log('yes is object')
+        // this.voice(resp.msg)
       }
     });
 
