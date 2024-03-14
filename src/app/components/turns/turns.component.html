@@ -1,0 +1,102 @@
+<div class="row justify-content-end without-borders d-none d-lg-flex d-md-flex">
+
+    <app-submenu [page]="'services'"></app-submenu>
+
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="container p-5">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h3>Gestionar turnos</h3>
+                </div>
+                <div class="col-lg-0 text-start">
+                    <button class="btn btn-success mt-1 mr-2" [disabled]="listTurnsInProcess.length===0" (click)="setNextTurn('call')"><span class="d-none d-lg-block d-md-block">Siguiente turno a pantalla</span></button>
+                    <button class="btn btn-primary mt-1" routerLink="/patients"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar paciente</span></button>
+                </div>
+            </div>
+
+
+            <hr>
+            <div class="row" *ngIf="!loading">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h5 class="text-info mb-2">Turnos en espera</h5>
+
+                    <div class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover bg-secondary responsive text-white" id="listTurnsInProcess" style="width:100%">
+                            <thead class="table-info">
+                                <tr>
+                                    <th>Turno</th>
+                                    <th>Puesto</th>
+                                    <th>Hora</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let turn of listTurnsInProcess" [id]="'item_'+turn.id" class="text-start">
+                                    <td><b>TN-0{{ turn.id }}</b></td>
+                                    <td>{{turn.window}}</td>
+                                    <td>{{turn.created_at | date:'shortTime'}}</td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="deleteTurn(turn.id)" style="cursor: pointer;">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h5 class="text-success mb-2">Turnos en pantalla</h5>
+
+                    <div class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover bg-secondary responsive  text-white" id="listTurnsCalls" style="width:100%">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>Turno</th>
+                                    <th>Puesto</th>
+                                    <th>Hora</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let turn of listTurnsCalls" [id]="'item_'+turn.id" class="text-start">
+                                    <td><b>TN-0{{ turn.id }}</b></td>
+                                    <td>{{turn.window}}</td>
+                                    <td>{{turn.created_at | date:'shortTime'}}</td>
+                                    <td>
+                                        <button class="btn btn-success" (click)="attendTurn(turn.id)" style="cursor: pointer;">Atender</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="pt-5 text-center" *ngIf="loading">
+                <h3>Cargando</h3>
+                <div class="spinner-border pt-2" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<button class="btn btn-danger" [disabled]="listTurnsCalls.length<1" (click)="callNextTurn('call_turn')" style="cursor: pointer;position:absolute;z-index:1;bottom:10px;right:10px;">
+    <img src="./assets/img/sound.png" width="60px" alt=""><b>Llamar siguiente turno</b>
+</button>
+
+
+<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none " style="height:100vh; ">
+    <div>
+        <img class="mb-3 " src="./assets/img/devices.svg " width="80% " alt=" ">
+        <h2 class="mb-3 ">Utilice una tableta o una pc para visualizar contenido.</h2>
+        <a routerLink="/ " class="btn btn-success shadow ">Pagina principal</a>
+    </div>
+</div>
