@@ -95,7 +95,8 @@ export class TurnsComponent implements OnInit {
         broadcaster: 'pusher',
         cluster: 'mt1',
         key: 'RCA090698',
-        wsHost: '80.240.126.243',
+        wsHost: '192.168.100.200',
+        wsPort: 6001,
         forceTLS: false,
         enabledTransports: ['ws']
       }

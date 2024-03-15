@@ -44,10 +44,10 @@ export class RequestTurnComponent implements OnInit {
 
       setTimeout(function(){
         console.log(response.data);
-        
+
       },100);
       this.loading = false;
-      
+
     }, error=>{
         this.loadData = false;
         this.loading = false;
@@ -64,7 +64,7 @@ export class RequestTurnComponent implements OnInit {
     // datos.append("service",this.serviceName);
     datos.append("code","");
     this._turns.setTurns(datos).subscribe((response)=>{
-    
+
       this.loading = false;
       Swal.fire({
         position: 'center',
@@ -84,11 +84,11 @@ export class RequestTurnComponent implements OnInit {
           showConfirmButton: false,
           timer: 5000
         });
-        
+
         setTimeout(() => {
           this.action = 'start';
         }, 1000);
-        
+
       }, 2000);
 
       this.PrintTurn('TN-'+response.data.id);
@@ -113,7 +113,7 @@ export class RequestTurnComponent implements OnInit {
       this.listTurns = response.data;
 
       let turns = this.listTurns.filter((item: { status: string; }) => item.status == 'call');
-  
+
       if(turns.length<=4){
         setTimeout(() => {
           let datos = new FormData();
@@ -127,14 +127,14 @@ export class RequestTurnComponent implements OnInit {
 
   PrintTurn(turn: any){
     var mywindow: any;
-  
+
     mywindow = window.open('', 'PRINT', 'height=10,width=10');
 
     let template = `
     <html><head><title>LCR</title>
     </head><body>
     <center><h1>TURNO<br>${turn}</h1></center>
-    <center><img src="../../../assets/img/qr.png" class="shadow mb-4" width="110px" style="margin-top:-20px;border-radius: 5px 5px;"></center>
+    <center><img src="./assets/img/qr.png" class="shadow mb-4" width="110px" style="margin-top:-20px;border-radius: 5px 5px;"></center>
     </body></html>
     `;
 

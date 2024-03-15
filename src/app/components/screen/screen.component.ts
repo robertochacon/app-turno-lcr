@@ -117,8 +117,9 @@ export class ScreenComponent implements OnInit {
         cluster: 'mt1',
         key: 'RCA090698',
         wsHost: '192.168.100.200',
+        wsPort: 6001,
         forceTLS: false,
-        enabledTransports: ['ws','wss']
+        enabledTransports: ['ws']
       }
     }
 
@@ -126,7 +127,7 @@ export class ScreenComponent implements OnInit {
     echo.channel('channel-turns').listen('UpdateTurns', (resp:any) => {
       this.getAllTurns();
       this.getAllPatients();
-      console.log(resp.msg);
+      console.log(resp);
 
     if(this.notification == 'voice'){
       if(resp.msg.action === 'call_turn'){
